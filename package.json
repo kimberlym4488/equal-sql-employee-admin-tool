@@ -1,0 +1,25 @@
+{
+  "name": "equal-sql-employee-admin-tool",
+  "version": "1.0.0",
+  "description": "HW-12, using SQL, perform CRUD actions to manipulate tables and govern adding, removing, and changing different types of employees in an organization.",
+  "main": "server.js",
+  "scripts": {
+    "test": "run test jest",
+    "start": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimberlym4488/equal-sql-employee-admin-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimberlym4488/equal-sql-employee-admin-tool/issues"
+  },
+  "homepage": "https://github.com/kimberlym4488/equal-sql-employee-admin-tool#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  }
+}
