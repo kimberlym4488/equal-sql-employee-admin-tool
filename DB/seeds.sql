@@ -8,6 +8,7 @@ VALUES
 INSERT INTO
   roles (id, title, salary, department_id)
 VALUES
+
   (500, "Sales Manager", "100000", 1),
   (501, "Accounts PayandReceive", "60000", 2),
   (502, "Payroll", "40000", 2),
