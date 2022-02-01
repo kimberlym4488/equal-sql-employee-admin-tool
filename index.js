@@ -98,7 +98,6 @@ async function viewAllRoles() {
     const employees = await db.query('Select roles.title, roles.id, roles.salary, department.departmentName FROM roles JOIN department ON roles.department_id = department.id');
     console.table(employees)
     menu();
-
 }
 
 
@@ -143,7 +142,7 @@ async function createRole() {
     answers.book_name
   ]
   */
-  )}
+
 
     const answers = await inquirer   
     .prompt([
