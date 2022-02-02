@@ -33,3 +33,6 @@ JOIN employee m
     ON m.id = employee.manager_id;
 /*Since I join the employee table together with itself, I add an alias to the JOIN employee so it can use the m.id instead of employee.id to reference itself. This is using the self-referencing foreign key instead of a separate manager and employee table*/
 
+/*Add a department*/
+INSERT INTO department (id, departmentName) VALUES  (?, ?)
+
