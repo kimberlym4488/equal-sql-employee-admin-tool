@@ -203,18 +203,23 @@ async function addARole() {
         ])
             /*const { answers } = departmentList.answers, title.answers,
             const title = answers.id;*/
-            console.log(answers )
+
+            const { departmentList, title, salary } = answers
+            const insertResults = await db.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)', [
+                answers.title, 
+                answers.salary,
+                answers.departmentList,
+            ])
+            viewAllRoles();
             
     }
 }
 
-catch(err) {
-    console.log(err);
+    catch(err) {
+        console.log(err);
 
-}
+    }
    // select the existing departments out of the department table. That will return us an array list of department like objects. Then we map the results from department table and insert it into question data for inquirer. 
-
-   
 }
 
 
