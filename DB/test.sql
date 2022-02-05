@@ -18,11 +18,6 @@ CREATE TABLE roles (
     ON DELETE SET NULL
 );
 
-CREATE TABLE manager(
-    id INT,
-    firstName VARCHAR(30) PRIMARY KEY
-);
-
 CREATE TABLE employee (
     id INT PRIMARY KEY,
     first_name VARCHAR(30),
