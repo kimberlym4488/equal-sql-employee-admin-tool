@@ -330,7 +330,6 @@ async function addAnEmployee() {
         ])
      
         console.table(insertResults)
-
         viewAllEmployees();
 
     }
