@@ -298,7 +298,7 @@ async function addAnEmployee() {
             ])
 
         const { first_name, last_name, roleList, managerVerification, managerList} = answers
-        console.log(answers)
+   
 
       if (answers.managerVerification === "No") { 
           const insertResults = await db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', [
@@ -318,12 +318,6 @@ async function addAnEmployee() {
             answers.roleList,
         ])
       
-        /*Trying to add a manager_id into table that equals employee id. I don't have it since this is dynamic, it could be 3, or 100. */
-        
-        /*const nameVer = await db.query('SELECT id FROM employee WHERE employee.first_name =? AND employee.last_name =?', [
-            answers.first_name,
-            answers.last_name,
-        ])*/
         const insertManager = await db.query('UPDATE employee SET manager_id = id WHERE employee.first_name=? AND employee.last_name=?', [
             answers.first_name,
             answers.last_name,
@@ -331,7 +325,6 @@ async function addAnEmployee() {
      
         console.table(insertResults)
         viewAllEmployees();
-
     }
  }
     
@@ -340,13 +333,65 @@ async function addAnEmployee() {
         }
 }    
 
+async function updateAnEmployeeRole() {
+
+    try{
+        db.query = util.promisify(db.query);
+        const employeeNames = await db.query(`Select id, CONCAT(first_name,' ', last_name) as employee FROM employee`);
+        const rolesList = await db.query('Select roles.id as roleId, roles.title FROM roles');
+       
+        const employeeChoices = employeeNames.map(employeeName => {
+            return {
+                name:employeeName.employee,
+                value:employeeName.id,
+            }
+        })
+
+        const roleChoices = rolesList.map(roleList => {
+            return {
+                name: roleList.title,
+                value: roleList.roleId,
+            }
+        })
+    
+        const answers = await inquirer
+        .prompt([
+            {
+                type: "list",
+                name: "employeeName",
+                message: "Which employee should we update?",
+                choices: employeeChoices,
+            },
+            {
+                type: "list",
+                name: "roleList",
+                message: "Which role should this employee be?",
+                choices: roleChoices,
+            },
+        ])
+
+        const { roleList, employeeName } = answers;
+       
+        const updateEmployee = await db.query('UPDATE employee SET employee.role_id = ? WHERE employee.id = ?', [
+            answers.roleList,
+            answers.employeeName,
+        ])
+        
+        viewAllEmployees();
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 async function deleteAnEmployee() {
 
     try{
         db.query = util.promisify(db.query);
 
         const employeesList = await db.query('SELECT * FROM employee');
-        console.log(employeesList)
+     
         const employeeChoices = employeesList.map(employeeList => {
             return {
                 name: employeeList.first_name,
@@ -363,7 +408,8 @@ async function deleteAnEmployee() {
                 choices: employeeChoices,
             },
         )
-        const deleteResults = await db.query('DELETE FROM employee WHERE id = ?', answers.id);
+        const { id } = answers;
+        const deleteResults = await db.query('DELETE FROM employee WHERE employee.id = ?', answers.id);
         viewAllEmployees();
     }
     catch (err) {
