@@ -1,3 +1,4 @@
+/*Creating one databas: employees_db with three tables: department, roles, employee*/
 DROP DATABASE IF EXISTS employees_db;
 CREATE DATABASE employees_db;
 

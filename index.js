@@ -102,22 +102,22 @@ async function menu() {
         case 7:
           viewAllManagerEmployees();
           break;
-        case 7:
+        case 8:
           viewBudgets();
           break;
-        case 7:
+        case 9:
           updateAnEmployeeRole();
           break;
-        case 8:
+        case 10:
           deleteDepartment();
           break;
-        case 9:
+        case 11:
           deleteRole();
           break;
-        case 10:
+        case 12:
           deleteEmployee();
           break;
-        case 10:
+        case 13:
           endApp();
           break;
       }
@@ -151,6 +151,8 @@ async function defaultQuestion() {
       }
     });
 }
+
+
 //CREATE
 //create a new department
 async function createDepartment() {
@@ -338,6 +340,8 @@ async function addAnEmployee() {
     console.log(err);
   }
 }
+
+
 //READ
 //View all departments
 async function viewAllDepartments() {
@@ -369,6 +373,7 @@ async function viewAllManagerEmployees() {
     `Select employee.first_name, employee.last_name, CONCAT (m.first_name, ' ', m.last_name) AS manager FROM employee JOIN roles ON employee.role_id = roles.id JOIN department ON department.id = roles.department_id JOIN employee m ON m.id = employee.manager_id`
   );
   console.table(employees);
+  defaultQuestion();
 }
 //View budget by Department
 async function viewBudgets() {
@@ -454,6 +459,8 @@ async function updateAnEmployeeRole() {
     console.log(err);
   }
 }
+
+
 //DELETE
 //Delete a department
 async function deleteDepartment() {
@@ -509,7 +516,7 @@ async function deleteRole() {
     });
     const { id } = answers;
     const deleteResults = await db.query(
-      "DELETE FROM role WHERE role.id = ?",
+      "DELETE FROM roles WHERE roles.id = ?",
       answers.id
     );
     viewAllRoles();
